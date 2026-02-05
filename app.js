@@ -1,8 +1,8 @@
 // Demo: contraseñas por opción (cámbialas)
 const passwords = {
-  1: "ClaveUno_123",
-  2: "OtraClave#2026",
-  3: "MiClaveFinal!"
+  1: "Stitch2026*",
+  2: "Bobesponja330#",
+  3: "Tobby12."
 };
 
 // Estado
