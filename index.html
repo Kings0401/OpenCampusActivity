@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validador + Cronómetro</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- Cronómetro fijo arriba/centro -->
+    <section class="top">
+      <h1 class="title">Validador de Contraseñas</h1>
+      <div class="timer" id="timer">00:00.00</div>
+      <div class="sub" id="subtext">Elige una opción para empezar</div>
+    </section>
+
+    <!-- Zona dinámica (cambia entre menú y validación) -->
+    <section class="panel" id="panelMenu">
+      <div class="options">
+        <button class="opt-card" data-opt="1">
+          <div class="opt-num">1</div>
+          <div class="opt-text">
+            <div class="opt-title">Opción 1</div>
+            <div class="opt-desc">Validación de la primera contraseña</div>
+          </div>
+        </button>
+
+        <button class="opt-card" data-opt="2">
+          <div class="opt-num">2</div>
+          <div class="opt-text">
+            <div class="opt-title">Opción 2</div>
+            <div class="opt-desc">Validación de la segunda contraseña</div>
+          </div>
+        </button>
+
+        <button class="opt-card" data-opt="3">
+          <div class="opt-num">3</div>
+          <div class="opt-text">
+            <div class="opt-title">Opción 3</div>
+            <div class="opt-desc">Validación de la tercera contraseña</div>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <section class="panel hidden" id="panelValidate">
+      <div class="validate-card">
+        <div class="badge" id="activeBadge">Opción X</div>
+
+        <label class="label" for="pwd">Escribe la contraseña</label>
+        <input class="input" id="pwd" type="password" placeholder="••••••••" />
+
+        <div class="actions">
+          <button class="btn primary" id="btnCheck">Validar</button>
+          <button class="btn" id="btnBack">Volver</button>
+          <button class="btn danger" id="btnReset">Reiniciar</button>
+        </div>
+
+        <div class="meta">
+          <span class="pill">Intentos: <strong id="attempts">0</strong></span>
+          <span class="pill">Estado: <strong id="status">En curso</strong></span>
+        </div>
+
+        <div class="result" id="resultBox">Aquí verás el resultado.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
