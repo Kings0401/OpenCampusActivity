@@ -9,21 +9,22 @@
 <body>
   <main class="wrap">
 
-    <!-- Cronómetro fijo arriba/centro -->
     <section class="top">
       <h1 class="title">Validador de Contraseñas</h1>
+      <button class="toggle" id="themeToggle" type="button">🌙 Modo oscuro</button>
       <div class="timer" id="timer">00:00.00</div>
-      <div class="sub" id="subtext">Elige una opción para empezar</div>
+      <div class="sub" id="subtext"></div>
+      
     </section>
 
-    <!-- Zona dinámica (cambia entre menú y validación) -->
+    <!-- Menú -->
     <section class="panel" id="panelMenu">
       <div class="options">
         <button class="opt-card" data-opt="1">
           <div class="opt-num">1</div>
           <div class="opt-text">
             <div class="opt-title">Opción 1</div>
-            <div class="opt-desc">Validación de la primera contraseña</div>
+            <div class="opt-desc">Reglas básicas (mínimo + número + símbolo)</div>
           </div>
         </button>
 
@@ -31,7 +32,7 @@
           <div class="opt-num">2</div>
           <div class="opt-text">
             <div class="opt-title">Opción 2</div>
-            <div class="opt-desc">Validación de la segunda contraseña</div>
+            <div class="opt-desc">Reglas intermedias (+ mayúscula + minúscula)</div>
           </div>
         </button>
 
@@ -39,18 +40,24 @@
           <div class="opt-num">3</div>
           <div class="opt-text">
             <div class="opt-title">Opción 3</div>
-            <div class="opt-desc">Validación de la tercera contraseña</div>
+            <div class="opt-desc">Reglas fuertes (+ sin espacios + largo)</div>
           </div>
         </button>
       </div>
     </section>
 
+    <!-- Validación -->
     <section class="panel hidden" id="panelValidate">
       <div class="validate-card">
         <div class="badge" id="activeBadge">Opción X</div>
 
-        <label class="label" for="pwd">Escribe la contraseña</label>
-        <input class="input" id="pwd" type="password" placeholder="••••••••" />
+        <label class="label" for="pwd">Escribe tu contraseña</label>
+        <input class="input" id="pwd" type="password" placeholder="••••••••" autocomplete="off" />
+
+        <!-- Checklist dinámico -->
+        <div class="rules" id="rulesBox">
+          <!-- Se llena desde JS según la opción -->
+        </div>
 
         <div class="actions">
           <button class="btn primary" id="btnCheck">Validar</button>

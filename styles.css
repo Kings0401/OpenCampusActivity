@@ -6,9 +6,50 @@
   --muted: rgba(234,240,255,0.75);
   --blue:#5b7cfa;
   --blue2:#6b8bff;
-  --ok: rgba(75,255,163,0.22);
-  --bad: rgba(255,85,85,0.18);
-  --warn: rgba(255,214,90,0.18);
+
+  --okBorder: rgba(75,255,163,0.55);
+  --okBg: rgba(75,255,163,0.15);
+
+  --badBorder: rgba(255,85,85,0.55);
+  --badBg: rgba(255,85,85,0.12);
+
+  --warnBorder: rgba(255,214,90,0.55);
+  --warnBg: rgba(255,214,90,0.12);
+}
+
+body.light{
+  --bg:#f6f8ff;
+  --card: rgb(193, 214, 235);
+  --border: rgba(0,0,0,0.12);
+  --text:#0e1630;
+  --muted: rgba(14,22,48,0.70);
+
+  --okBorder: rgba(20,150,90,0.40);
+  --okBg: rgba(20,150,90,0.10);
+
+  --badBorder: rgba(200,50,60,0.35);
+  --badBg: rgba(200,50,60,0.08);
+
+  --warnBorder: rgba(180,130,10,0.35);
+  --warnBg: rgba(180,130,10,0.08);
+}
+
+
+.toggle{
+  margin-top: 6px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.10);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.toggle:hover{ background: rgba(255,255,255,0.16); }
+
+/* Ajuste del cronómetro en modo claro (para que no quede tan oscuro) */
+body.light .timer{
+  background: rgba(255,255,255,0.80);
 }
 
 *{ box-sizing: border-box; }
@@ -27,7 +68,6 @@ body{
   gap: 18px;
 }
 
-/* Parte superior centrada */
 .top{
   display: grid;
   gap: 10px;
@@ -39,7 +79,6 @@ body{
   margin: 0;
   font-size: 22px;
   font-weight: 800;
-  letter-spacing: .2px;
 }
 
 .timer{
@@ -59,7 +98,6 @@ body{
   font-size: 14px;
 }
 
-/* Panel inferior */
 .panel{
   background: var(--card);
   border: 1px solid var(--border);
@@ -118,7 +156,7 @@ body{
 .validate-card{
   display: grid;
   gap: 12px;
-  max-width: 620px;
+  max-width: 680px;
   margin: 0 auto;
 }
 
@@ -150,7 +188,8 @@ body{
 
 .actions{
   display:flex;
-  gap: 10px;
+  gap: 8px;
+  justify-content: center; /* ← centra botones */
   flex-wrap: wrap;
 }
 
@@ -192,6 +231,7 @@ body{
   color: var(--muted);
 }
 
+/* Resultado */
 .result{
   padding: 12px;
   border-radius: 14px;
@@ -199,7 +239,56 @@ body{
   background: rgba(0,0,0,0.18);
   min-height: 48px;
 }
+.result.ok{ border-color: var(--okBorder); background: var(--okBg); }
+.result.bad{ border-color: var(--badBorder); background: var(--badBg); }
+.result.hint{ border-color: var(--warnBorder); background: var(--warnBg); }
 
-.result.ok{ border-color: rgba(75,255,163,0.45); background: var(--ok); }
-.result.bad{ border-color: rgba(255,85,85,0.45); background: var(--bad); }
-.result.hint{ border-color: rgba(255,214,90,0.45); background: var(--warn); }
+/* ✅ Checklist de reglas */
+.rules{
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.18);
+}
+
+.rule-item{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  color: var(--muted);
+}
+
+.rule-dot{
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.20);
+  background: transparent;
+  flex: 0 0 auto;
+}
+
+.rule-item.ok{
+  border-color: var(--okBorder);
+  background: var(--okBg);
+  color: var(--text);
+}
+.rule-item.ok .rule-dot{
+  border-color: var(--okBorder);
+  background: rgba(75,255,163,0.65);
+}
+
+.rule-item.bad{
+  border-color: var(--badBorder);
+  background: var(--badBg);
+  color: var(--text);
+}
+.rule-item.bad .rule-dot{
+  border-color: var(--badBorder);
+  background: rgba(255,85,85,0.65);
+}
