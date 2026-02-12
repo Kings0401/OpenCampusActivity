@@ -15,6 +15,9 @@
 
   --warnBorder: rgba(255,214,90,0.55);
   --warnBg: rgba(255,214,90,0.12);
+
+  --almostBorder: orange;
+  --almostBg: rgba(255,165,0,0.15);
 }
 
 body.light{
@@ -32,6 +35,9 @@ body.light{
 
   --warnBorder: rgba(180,130,10,0.35);
   --warnBg: rgba(180,130,10,0.08);
+
+  --almostBorder: orange;
+  --almostBg: rgba(255,165,0,0.15);
 }
 
 
@@ -162,12 +168,16 @@ body{
 
 .badge{
   width: fit-content;
-  padding: 8px 12px;
+  padding: 4px 10px;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(0,0,0,0.22);
-  font-weight: 800;
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  font-size: 12px;
+  opacity: 0.4;
+  justify-self: end;
 }
+
 
 .label{ font-weight: 800; font-size: 14px; }
 
@@ -242,6 +252,11 @@ body{
 .result.ok{ border-color: var(--okBorder); background: var(--okBg); }
 .result.bad{ border-color: var(--badBorder); background: var(--badBg); }
 .result.hint{ border-color: var(--warnBorder); background: var(--warnBg); }
+.result.ready{
+  border-color: var(--almostBorder);
+  background: var(--almostBg);
+  color: var(--text);
+}
 
 /* ✅ Checklist de reglas */
 .rules{
@@ -292,3 +307,4 @@ body{
   border-color: var(--badBorder);
   background: rgba(255,85,85,0.65);
 }
+

@@ -26,8 +26,10 @@ const optionRules = {
 const exactPasswords = {
   1: "Stitch2026*",
   2: "Bobesponja330#",
-  3: "Toby12."
+  3: "Tobby12."
 };
+
+const TIME_LIMIT = 120000;
 
 
 // Estado
@@ -69,7 +71,18 @@ function formatTime(ms) {
 
 function tick(){
   if (!running) return;
-  timerEl.textContent = formatTime(performance.now() - startTime);
+
+  const elapsed = performance.now() - startTime;
+  timerEl.textContent = formatTime(elapsed);
+
+  if (elapsed >= TIME_LIMIT){
+    stopTimer();
+    statusEl.textContent = "Tiempo agotado";
+    resultBox.className = "result bad";
+    resultBox.textContent = "⏰ Se acabó el tiempo.";
+    return;
+  }
+
   rafId = requestAnimationFrame(tick);
 }
 
@@ -101,7 +114,7 @@ function showValidation(opt){
   panelMenu.classList.add("hidden");
   panelValidate.classList.remove("hidden");
 
-  activeBadge.textContent = `Opción ${opt}`;
+  activeBadge.textContent = `${opt}`;
 
   attempts = 0;
 
@@ -151,8 +164,8 @@ function updateRulesUI(){
   // Si TODO está ok, ponemos un mensaje suave
   const allOk = Object.values(status).every(Boolean) && Object.keys(status).length > 0;
   if (allOk){
-    resultBox.className = "result ok";
-    resultBox.textContent = "✅ Ya cumples todos los requisitos. Presiona Validar.";
+    resultBox.className = "result ready";
+    resultBox.textContent = "Ya cumples todos los requisitos. Presiona Validar.";
   } else {
     resultBox.className = "result hint";
     resultBox.textContent = "Sigue escribiendo hasta cumplir todos los requisitos.";
@@ -201,7 +214,40 @@ function validate(){
       resultBox.textContent = `❌ Cumple los requisitos, pero NO es la contraseña exacta. Intento #${attempts}.`;
     }
   }
+  setTimeout(() => {
+  pwdInput.value = "";
+  pwdInput.focus();
+  updateRulesUI();
+}, 1200);
+}
 
+function resetCurrentOption(){
+  if (!activeOption) return;
+
+  // 1) Timer a cero y vuelve a arrancar
+  stopTimer();
+  resetTimerUI();
+  startTimer();
+
+  // 2) Intentos y estado
+  attempts = 0;
+  attemptsEl.textContent = "0";
+  statusEl.textContent = "En curso";
+
+  // 3) Limpia contraseña
+  pwdInput.value = "";
+  pwdInput.focus();
+
+  // 4) Re-render de reglas como si acabara de entrar a la opción
+  renderRules(activeOption);
+  updateRulesUI();
+
+  // 5) Mensaje de resultado
+  resultBox.className = "result hint";
+  resultBox.textContent = "Escribe la contraseña: verás los requisitos en verde/rojo.";
+
+  // 6) Mensaje de arriba (si lo estás usando)
+  subtext.textContent = "";
 }
 
 function resetAll(){
@@ -238,7 +284,7 @@ btnBack.addEventListener("click", () => {
   resetAll();
 });
 
-btnReset.addEventListener("click", resetAll);
+btnReset.addEventListener("click", resetCurrentOption);
 
 // Inicio
 resetAll();
